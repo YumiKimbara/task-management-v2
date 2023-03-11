@@ -1,14 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import { Provider } from "react-redux";
+import { applyMiddleware, compose } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
+
+import reducers from "./reducers";
 import App from "./App";
-import { HomeContextProvider } from "./Context/HomeContext";
+import "./index.css";
+
+// create redux store
+const store = configureStore(
+  { reducer: reducers },
+  compose(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <HomeContextProvider>
+    <Provider store={store}>
       <App />
-    </HomeContextProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

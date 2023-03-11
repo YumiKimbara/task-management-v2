@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 import AddNewTask from "./task/AddNewTask";
 import KeyTask from "./task/KeyTask";
@@ -69,6 +70,9 @@ const Home = ({ checkKey }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [confetti, setConfetti] = useState(false);
+  const tasks = useSelector((state) => state);
+
+  console.log("tasks", tasks);
 
   const handleClose = () => {
     setOpen(false);
