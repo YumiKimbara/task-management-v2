@@ -5,6 +5,7 @@ import AddNewTask from "./task/AddNewTask";
 import KeyTask from "./task/KeyTask";
 import TaskDone from "./task/TaskDone";
 import Confetti from "./layout/Confetti";
+import Header from "./layout/Header";
 
 import { Modal, Button } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
@@ -66,9 +67,10 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const Home = ({ checkKey }) => {
+const Home = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [checkKey, setCheckKey] = useState(false);
   const [confetti, setConfetti] = useState(false);
   const tasks = useSelector((state) => state);
 
@@ -80,6 +82,7 @@ const Home = ({ checkKey }) => {
 
   return (
     <>
+      <Header checkKey={checkKey} setCheckKey={setCheckKey} />
       {confetti && <Confetti setConfetti={setConfetti} />}
 
       {checkKey ? (
