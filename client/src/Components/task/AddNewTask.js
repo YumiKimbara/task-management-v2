@@ -87,42 +87,40 @@ const OrangeTextField = withStyles({
 
 const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
   const classes = useStyles();
-  const homeCtx = useContext(HomeContext);
-
-  if (!homeCtx) return;
+  // const homeCtx = useContext(HomeContext);
 
   const [error, setError] = useState(false);
 
   // when task cards changed, set card's info to local strage
-  useEffect(() => {
-    localStorage.setItem("task", JSON.stringify(homeCtx.storeTaskData));
-  }, [homeCtx.storeTaskData]);
+  // useEffect(() => {
+  //   localStorage.setItem("task", JSON.stringify(homeCtx.storeTaskData));
+  // }, [homeCtx.storeTaskData]);
 
   const createTask = () => {
     //if text in the input is empty, show error message
-    if (homeCtx.taskText.trim() === "") {
-      setError(true);
-      return;
-    }
-
+    // if (homeCtx.taskText.trim() === "") {
+    //   setError(true);
+    //   return;
+    // }
     //if text in the input is not empty, store task with context API
-    if (homeCtx.taskText.trim() !== "") {
-      homeCtx.dispatchHome({
-        type: "STORE_TASK",
-        payload: {
-          id: uuidv4(),
-          task: homeCtx.taskText,
-          isDone: false,
-          isKey: false,
-        },
-      });
-
-      homeCtx.dispatchHome({
-        type: "TASK_TEXT",
-        payload: "",
-      });
-    }
+    // if (homeCtx.taskText.trim() !== "") {
+    //   homeCtx.dispatchHome({
+    //     type: "STORE_TASK",
+    //     payload: {
+    //       id: uuidv4(),
+    //       task: homeCtx.taskText,
+    //       isDone: false,
+    //       isKey: false,
+    //     },
+    //   });
+    // homeCtx.dispatchHome({
+    //   type: "TASK_TEXT",
+    //   payload: "",
+    // });
+    // }
   };
+
+  //homeCtx.storeTaskData.length === 0 ?
 
   return (
     <>
@@ -132,7 +130,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
             <h2>CREATE YOUR TASK</h2>
           </div>
           <div>
-            {homeCtx.storeTaskData.length === 0 ? (
+            {true ? (
               <Button disabled variant="contained" className={classes.button}>
                 {" "}
                 Delete this workplace
@@ -143,10 +141,10 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  homeCtx.dispatchHome({
-                    type: "DELETE_ALL_TASK",
-                    payload: "",
-                  });
+                  // homeCtx.dispatchHome({
+                  //   type: "DELETE_ALL_TASK",
+                  //   payload: "",
+                  // });
                 }}
               >
                 Delete this workplace
@@ -157,7 +155,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
         <form
           className={classes.root}
           onKeyDown={(e) => {
-            e.key === "Enter" && !homeCtx.isEditing && createTask();
+            // e.key === "Enter" && !homeCtx.isEditing && createTask();
           }}
           onSubmit={(e) => {
             e.preventDefault();
@@ -167,7 +165,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
             size="small"
             aria-label="add"
             className={classes.addButton}
-            onClick={!homeCtx.isEditing && createTask}
+            // onClick={!homeCtx.isEditing && createTask}
           >
             <AddIcon />
           </OrangeFab>
@@ -176,13 +174,13 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
               error
               fullWidth
               helperText="Type your task"
-              value={homeCtx.taskText}
+              // value={homeCtx.taskText}
               onChange={(e) => {
                 setError(false);
-                homeCtx.dispatchHome({
-                  type: "TASK_TEXT",
-                  payload: e.target.value,
-                });
+                // homeCtx.dispatchHome({
+                //   type: "TASK_TEXT",
+                //   payload: e.target.value,
+                // });
               }}
             />
           ) : (
@@ -194,12 +192,12 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
               InputLabelProps={{
                 shrink: true,
               }}
-              value={homeCtx.taskText}
+              // value={homeCtx.taskText}
               onChange={(e) => {
-                homeCtx.dispatchHome({
-                  type: "TASK_TEXT",
-                  payload: e.target.value,
-                });
+                // homeCtx.dispatchHome({
+                //   type: "TASK_TEXT",
+                //   payload: e.target.value,
+                // });
               }}
             />
           )}
@@ -210,13 +208,14 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
           cardData={
             //if there is a task card, and key is not checked, show task card which is not done and key is not checkd
             //if there is a task card, and key is checked, show task card which is not done and key is checked.
-            homeCtx.storeTaskData && !checkKey
-              ? homeCtx.storeTaskData.filter((item) => !item.isDone)
-              : homeCtx.keyTaskPage
-              ? homeCtx.storeTaskData.filter(
-                  (item) => !item.isDone && item.isKey
-                )
-              : ""
+            // homeCtx.storeTaskData && !checkKey
+            //   ? homeCtx.storeTaskData.filter((item) => !item.isDone)
+            //   : homeCtx.keyTaskPage
+            //   ? homeCtx.storeTaskData.filter(
+            //       (item) => !item.isDone && item.isKey
+            //     )
+            //   : ""
+            ""
           }
           setConfetti={setConfetti}
           setOpen={setOpen}

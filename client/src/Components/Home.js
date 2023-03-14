@@ -74,7 +74,7 @@ const Home = () => {
   const [confetti, setConfetti] = useState(false);
   const tasks = useSelector((state) => state);
 
-  console.log("tasks", tasks);
+  console.log("tasks", tasks, checkKey);
 
   const handleClose = () => {
     setOpen(false);
