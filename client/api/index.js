@@ -1,10 +1,12 @@
 import axios from "axios";
 
-export const fetchTasks = () => axios.get("/");
+const API = axios.create({ baseURL: "http://localhost:3333" });
+
+export const fetchTasks = () => API.get("/");
 
 export const createTask = (newTask) => {
   console.log("newTask", newTask);
-  axios.post("/", newTask).then((res) => {
+  API.post("/", newTask).then((res) => {
     console.log("res", res);
   });
 };
