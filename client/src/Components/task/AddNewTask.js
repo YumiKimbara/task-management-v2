@@ -1,5 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import HomeContext from "../../Context/HomeContext";
+import { createTask, getTasks } from "../../actions/tasks";
 
 import TaskCard from "./TaskCard";
 
@@ -87,6 +89,7 @@ const OrangeTextField = withStyles({
 
 const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   // const homeCtx = useContext(HomeContext);
 
   const [error, setError] = useState(false);
@@ -96,7 +99,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
   //   localStorage.setItem("task", JSON.stringify(homeCtx.storeTaskData));
   // }, [homeCtx.storeTaskData]);
 
-  const createTask = () => {
+  const createNewTask = useCallback(() => {
     //if text in the input is empty, show error message
     // if (homeCtx.taskText.trim() === "") {
     //   setError(true);
@@ -118,7 +121,16 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
     //   payload: "",
     // });
     // }
-  };
+    // console.log("hey");
+    dispatch(
+      // createTask("hiii")
+      createTask({ id: uuidv4(), task: "test", isDone: false, isKey: false })
+    );
+  }, []);
+
+  useEffect(() => {
+    dispatch(getTasks());
+  }, []);
 
   //homeCtx.storeTaskData.length === 0 ?
 
@@ -156,6 +168,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
           className={classes.root}
           onKeyDown={(e) => {
             // e.key === "Enter" && !homeCtx.isEditing && createTask();
+            e.key === "Enter" && createNewTask();
           }}
           onSubmit={(e) => {
             e.preventDefault();
@@ -165,6 +178,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
             size="small"
             aria-label="add"
             className={classes.addButton}
+            onClick={createNewTask}
             // onClick={!homeCtx.isEditing && createTask}
           >
             <AddIcon />

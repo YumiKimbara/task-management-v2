@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 
 const taskSchema = mongoose.Schema({
-  title: String,
+  id: String,
+  isDone: Boolean,
+  isKey: Boolean,
+  task: String,
 });
 
 const TaskModel = mongoose.model("TaskModel", taskSchema);
