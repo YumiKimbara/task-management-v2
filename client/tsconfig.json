@@ -29,7 +29,7 @@
     "pages/api/tasks/index.js",
     "pages/index.js",
     "api/index.js",
-    "src/Components/task/AddNewTask.js",
+    "src/Components/task/AddNewTask.tsx",
     "src/Components/task/KeyTask.js",
     "src/Components/task/TaskCard.js",
     "src/Components/task/TaskDone.js",

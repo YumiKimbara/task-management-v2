@@ -90,43 +90,39 @@ const OrangeTextField = withStyles({
 const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  // const homeCtx = useContext(HomeContext);
 
   const [error, setError] = useState(false);
+  const [taskText, setTaskText] = useState("");
 
   // when task cards changed, set card's info to local strage
   // useEffect(() => {
   //   localStorage.setItem("task", JSON.stringify(homeCtx.storeTaskData));
   // }, [homeCtx.storeTaskData]);
 
-  const createNewTask = useCallback(() => {
-    //if text in the input is empty, show error message
-    // if (homeCtx.taskText.trim() === "") {
-    //   setError(true);
-    //   return;
-    // }
-    //if text in the input is not empty, store task with context API
-    // if (homeCtx.taskText.trim() !== "") {
-    //   homeCtx.dispatchHome({
-    //     type: "STORE_TASK",
-    //     payload: {
-    //       id: uuidv4(),
-    //       task: homeCtx.taskText,
-    //       isDone: false,
-    //       isKey: false,
-    //     },
-    //   });
-    // homeCtx.dispatchHome({
-    //   type: "TASK_TEXT",
-    //   payload: "",
-    // });
-    // }
-    // console.log("hey");
-    dispatch(
-      // createTask("hiii")
-      createTask({ id: uuidv4(), task: "test", isDone: false, isKey: false })
-    );
+  const taskTextHandler = useCallback((e) => {
+    setTaskText(e.target.value);
   }, []);
+
+  const createNewTask = useCallback(
+    (e) => {
+      //if text in the input is empty, show error message
+      if (taskText.trim() === "") {
+        setError(true);
+        return;
+      }
+      //if text in the input is not empty, store task with Redux
+      dispatch(
+        createTask({
+          id: uuidv4(),
+          task: taskText,
+          isDone: false,
+          isKey: false,
+        })
+      );
+      setTaskText("");
+    },
+    [taskText]
+  );
 
   useEffect(() => {
     dispatch(getTasks());
@@ -166,9 +162,11 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
         </div>
         <form
           className={classes.root}
+          // onChange={taskTextHandler}
           onKeyDown={(e) => {
-            // e.key === "Enter" && !homeCtx.isEditing && createTask();
-            e.key === "Enter" && createNewTask();
+            // if (e.key === "Enter" && !homeCtx.isEditing) return;
+            if (e.key !== "Enter") return;
+            createNewTask();
           }}
           onSubmit={(e) => {
             e.preventDefault();
@@ -185,12 +183,14 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
           </OrangeFab>
           {error ? (
             <TextField
+              value={taskText}
               error
               fullWidth
               helperText="Type your task"
               // value={homeCtx.taskText}
               onChange={(e) => {
                 setError(false);
+                taskTextHandler(e);
                 // homeCtx.dispatchHome({
                 //   type: "TASK_TEXT",
                 //   payload: e.target.value,
@@ -199,6 +199,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
             />
           ) : (
             <OrangeTextField
+              value={taskText}
               style={{ margin: 8 }}
               placeholder="ADD A NEW TASK HERE"
               fullWidth
@@ -208,6 +209,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
               }}
               // value={homeCtx.taskText}
               onChange={(e) => {
+                taskTextHandler(e);
                 // homeCtx.dispatchHome({
                 //   type: "TASK_TEXT",
                 //   payload: e.target.value,
