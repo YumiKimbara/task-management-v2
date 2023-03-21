@@ -85,6 +85,12 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
     dispatch(getTasks());
   }, []);
 
+  const deleteAllTasksHandler = useCallback(() => {
+    dispatch(deleteTasks({
+      ""
+    }))
+  }, [])
+
   //homeCtx.storeTaskData.length === 0 ?
 
   return (

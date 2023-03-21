@@ -19,8 +19,15 @@ export const createTask =
   (task: any) => async (dispatch: ThunkDispatch<any, void, Action>) => {
     try {
       const response = await api.createTask(task);
-      console.log("response", response);
-      //   dispatch({ type: CREATE, payload: data });
+      dispatch({ type: CREATE, payload: response });
+    } catch (error) {
+      if (error instanceof Error) console.error(error);
+    }
+  };
+
+export const deleteAllTasks =
+  (task: any) => async (dispatch: ThunkDispatch<any, void, Action>) => {
+    try {
     } catch (error) {
       if (error instanceof Error) console.error(error);
     }
