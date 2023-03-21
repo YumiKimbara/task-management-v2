@@ -144,14 +144,9 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
               error
               fullWidth
               helperText="Type your task"
-              // value={homeCtx.taskText}
               onChange={(e) => {
                 setError(false);
                 taskTextHandler(e);
-                // homeCtx.dispatchHome({
-                //   type: "TASK_TEXT",
-                //   payload: e.target.value,
-                // });
               }}
             />
           ) : (
@@ -164,13 +159,8 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
               InputLabelProps={{
                 shrink: true,
               }}
-              // value={homeCtx.taskText}
               onChange={(e) => {
                 taskTextHandler(e);
-                // homeCtx.dispatchHome({
-                //   type: "TASK_TEXT",
-                //   payload: e.target.value,
-                // });
               }}
             />
           )}
