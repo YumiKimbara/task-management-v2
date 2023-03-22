@@ -26,8 +26,9 @@ export const createTask =
   };
 
 export const deleteAllTasks =
-  (task: any) => async (dispatch: ThunkDispatch<any, void, Action>) => {
+  () => async (dispatch: ThunkDispatch<any, void, Action>) => {
     try {
+      dispatch({ type: DELETE, payload: "" });
     } catch (error) {
       if (error instanceof Error) console.error(error);
     }

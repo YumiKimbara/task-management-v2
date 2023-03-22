@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HomeContext from "../../Context/HomeContext";
-import { createTask, getTasks } from "../../actions/tasks";
+import { createTask, getTasks, deleteAllTasks } from "../../actions/tasks";
 
 import TaskCard from "./TaskCard";
 
@@ -13,6 +13,7 @@ import { Button, TextField, Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
 import useStyles from "./styles";
+import { TaskSharp } from "@mui/icons-material";
 
 const OrangeButton = withStyles({
   root: {
@@ -47,6 +48,7 @@ const OrangeTextField = withStyles({
 const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const tasks = useSelector((state) => state);
 
   const [error, setError] = useState(false);
   const [taskText, setTaskText] = useState("");
@@ -85,13 +87,9 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
     dispatch(getTasks());
   }, []);
 
-  const deleteAllTasksHandler = useCallback(() => {
-    dispatch(deleteTasks({
-      ""
-    }))
-  }, [])
-
-  //homeCtx.storeTaskData.length === 0 ?
+  const deleteAllTasks = useCallback(() => {
+    dispatch(deleteAllTasks({}));
+  }, []);
 
   return (
     <>
@@ -101,7 +99,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
             <h2>CREATE YOUR TASK</h2>
           </div>
           <div>
-            {true ? (
+            {tasks.length === 0 ? (
               <Button disabled variant="contained" className={classes.button}>
                 {" "}
                 Delete this workplace
@@ -112,10 +110,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  // homeCtx.dispatchHome({
-                  //   type: "DELETE_ALL_TASK",
-                  //   payload: "",
-                  // });
+                  deleteAllTasks();
                 }}
               >
                 Delete this workplace
