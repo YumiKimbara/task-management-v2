@@ -87,8 +87,8 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
     dispatch(getTasks());
   }, []);
 
-  const deleteAllTasks = useCallback(() => {
-    dispatch(deleteAllTasks({}));
+  const deleteAllTasksHandler = useCallback(() => {
+    dispatch(deleteAllTasks());
   }, []);
 
   return (
@@ -110,7 +110,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
                 className={classes.button}
                 onClick={(e) => {
                   e.preventDefault();
-                  deleteAllTasks();
+                  deleteAllTasksHandler();
                 }}
               >
                 Delete this workplace

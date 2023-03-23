@@ -29,3 +29,12 @@ export const createTask = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const deleteAllTasks = async (req, res) => {
+  try {
+    await TaskModel.deleteMany({});
+    res.status(200).json();
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};

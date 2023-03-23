@@ -28,6 +28,7 @@ export const createTask =
 export const deleteAllTasks =
   () => async (dispatch: ThunkDispatch<any, void, Action>) => {
     try {
+      await api.deleteAllTasks();
       dispatch({ type: DELETE, payload: "" });
     } catch (error) {
       if (error instanceof Error) console.error(error);
