@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const taskSchema = mongoose.Schema({
   id: String,
   task: String,
+  isEditing: Boolean,
   isDone: Boolean,
   isKey: Boolean,
 });

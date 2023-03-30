@@ -74,6 +74,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
         createTask({
           id: uuidv4(),
           task: taskText,
+          isEditing: false,
           isDone: false,
           isKey: false,
         })

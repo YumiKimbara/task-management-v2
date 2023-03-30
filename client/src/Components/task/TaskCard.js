@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useSelector } from "react-redux";
 import HomeContext from "../../Context/HomeContext";
 
 import { makeStyles, createStyles, withStyles } from "@material-ui/core/styles";
@@ -110,6 +111,7 @@ const OrangeCheckbox = withStyles({
 const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
   const classes = useStyles();
   const homeCtx = useContext(HomeContext);
+  const tasks = useSelector((state) => state)
   const [editText, setEditText] = useState();
   const [editingId, setEditingId] = useState("");
   const [notEditingId, setNotEditingId] = useState("");
@@ -151,10 +153,16 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
 
   //if editing, set true, if not editing, set false
   const changeEditStatus = () => {
-    homeCtx.dispatchHome({
-      type: "EDIT_STATUS",
-      payload: !homeCtx.isEditing,
-    });
+    // homeCtx.dispatchHome({
+    //   type: "EDIT_STATUS",
+    //   payload: !homeCtx.isEditing,
+    // });
+
+    dispatch(
+      updateTaskStatus({
+        isEditing: true
+      })
+    );
   };
 
   const deleteTask = (data) => {
