@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HomeContext from "../../Context/HomeContext";
+import { updateTaskStatus, updateTask } from "../../actions/tasks";
 
 import { makeStyles, createStyles, withStyles } from "@material-ui/core/styles";
 import { orange } from "@material-ui/core/colors";
@@ -110,12 +111,14 @@ const OrangeCheckbox = withStyles({
 
 const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const homeCtx = useContext(HomeContext);
   const tasks = useSelector((state) => state)
-  const [editText, setEditText] = useState();
+  const [editText, setEditText] = useState("");
   const [editingId, setEditingId] = useState("");
   const [notEditingId, setNotEditingId] = useState("");
   const [error, setError] = useState(false);
+  const [isEditing, setIsEditing] = useState(false)
 
   // change the position of a task card to 'DONE' section
   const changeToDone = (data) => {
@@ -144,25 +147,33 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
 
   // store edited text
   const editTask = (data) => {
-    if (!editText) return;
-    homeCtx.dispatchHome({
-      type: "EDIT_TASK",
-      payload: { data: { ...data, task: editText } },
-    });
+    // console.log("editText", editText)
+    // if (!editText) return;
+    // // homeCtx.dispatchHome({
+    // //   type: "EDIT_TASK",
+    // //   payload: { data: { ...data, task: editText } },
+    // // });
+
+    // dispatch(updateTask({
+    //   task: { ...data, task: editText }
+    // }))
   };
 
   //if editing, set true, if not editing, set false
-  const changeEditStatus = () => {
+  const changeEditStatus = (data) => {
+    dispatch(updateTask({
+      task: { ...data, isEditing: !isEditing }
+    }))
     // homeCtx.dispatchHome({
     //   type: "EDIT_STATUS",
     //   payload: !homeCtx.isEditing,
     // });
 
-    dispatch(
-      updateTaskStatus({
-        isEditing: true
-      })
-    );
+    // dispatch(
+    //   updateTaskStatus({
+    //     isEditing: true
+    //   })
+    // );
   };
 
   const deleteTask = (data) => {
@@ -200,10 +211,12 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
     setEditingId(clikedEditId);
   };
 
+  console.log("tasks!", tasks)
+
   return (
     <>
-      {cardData &&
-        cardData.map((data, i) => {
+      {tasks &&
+        tasks.map((data, i) => {
           return (
             <div className={classes.cardContainer} key={data.id}>
               <Card className={classes.root}>
@@ -214,9 +227,9 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                       control={
                         //if task is done, check the checkbox
                         <OrangeCheckbox
-                          disabled={homeCtx.isEditing ? true : false}
+                          disabled={data.isEditing ? true : false}
                           checked={
-                            data.isDone && !homeCtx.isEditing ? true : false
+                            data.isDone && !data.isEditing ? true : false
                           }
                           name="checkedB"
                           id={data.id}
@@ -232,13 +245,13 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                       }}
                     />
                   )}
-                  {!homeCtx.isEditing && (
+                  {!data.isEditing && (
                     <label htmlFor="task">{data.task}</label>
                   )}
-                  {homeCtx.isEditing && cardData[i].id !== editingId && (
+                  {data.isEditing && cardData[i].id !== editingId && (
                     <label htmlFor="task">{data.task}</label>
                   )}
-                  {homeCtx.isEditing && cardData[i].id === editingId && (
+                  {data.isEditing && cardData[i].id === editingId && (
                     <input
                       autoFocus
                       className={classes.input}
@@ -251,7 +264,7 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                       }}
                       onKeyPress={(e) => {
                         if (e.key === "Enter") {
-                          changeEditStatus();
+                          changeEditStatus(data);
                           setEditText(data.task);
                           checkEditing(data.id);
                           setEditingId(cardData[i].id);
@@ -268,7 +281,7 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                         className={classes.icons}
                         control={
                           <Checkbox
-                            disabled={homeCtx.isEditing ? true : false}
+                            disabled={data.isEditing ? true : false}
                             color="default"
                             onClick={() => {
                               data.isDone && deleteTask(data, true);
@@ -287,20 +300,20 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                           color="default"
                           disabled={
                             (notEditingId.includes(cardData[i].id) &&
-                              homeCtx.isEditing) ||
+                            data.isEditing) ||
                             error
                               ? true
                               : false
                           }
                           onClick={(e) => {
-                            changeEditStatus();
+                            changeEditStatus(data);
                             setEditText(data.task);
                             checkEditing(data.id);
                             setEditingId(cardData[i].id);
                             editTask(data);
                           }}
                           icon={
-                            homeCtx.isEditing &&
+                            data.isEditing &&
                             !notEditingId.includes(cardData[i].id) ? (
                               <CheckCircleOutlineIcon
                                 className={classes.checkCircleIcon}
@@ -310,7 +323,7 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                             )
                           }
                           checkedIcon={
-                            homeCtx.isEditing &&
+                            data.isEditing &&
                             !notEditingId.includes(cardData[i].id) ? (
                               <CheckCircleOutlineIcon
                                 className={classes.checkCircleIcon}
@@ -328,7 +341,7 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                     control={
                       <Checkbox
                         color="default"
-                        disabled={homeCtx.isEditing ? true : false}
+                        disabled={data.isEditing ? true : false}
                         onClick={() => {
                           changeToKeyTask(data, !data.isKey);
                         }}

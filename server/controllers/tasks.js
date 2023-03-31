@@ -30,6 +30,24 @@ export const createTask = async (req, res) => {
   }
 };
 
+export const updateTask = async (req, res) => {
+  try {
+    const { _id } = req.body.task;
+    const { task, isEditing, isDone, isKey } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(_id))
+      return res.status(404).send(`No task with id: ${_id}`);
+  
+    const updatedTask = { task, isEditing, isDone, isKey, _id };
+  
+    await TaskModel.findByIdAndUpdate(_id, updatedTask, { new: true });
+  
+    res.json(updatedTask);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
 export const deleteAllTasks = async (req, res) => {
   try {
     await TaskModel.deleteMany({});

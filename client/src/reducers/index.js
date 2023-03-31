@@ -15,20 +15,23 @@ export default (tasks = [], action) => {
     case CREATE:
       return [...tasks, action.payload];
     case EDIT_TASK:
-      return {
-        ...tasks,
-        storeTaskData: tasks.storeTaskData.map((taskData) => {
-          if (action.payload.data.id === taskData.id) {
-            // return previous task data. also update isKey part
-            return {
-              ...taskData,
-              task: action.payload.data.task,
-              // isEdit: action.payload.edit,
-            };
-          }
-          return taskData;
-        }),
-      };
+      return tasks.map((task) => {
+        return task.id === action.payload.id ? action.payload : task
+      })
+      // return {
+      //   ...tasks,
+      //   storeTaskData: tasks.storeTaskData.map((taskData) => {
+      //     if (action.payload.data.id === taskData.id) {
+      //       // return previous task data. also update isKey part
+      //       return {
+      //         ...taskData,
+      //         task: action.payload.data.task,
+      //         // isEdit: action.payload.edit,
+      //       };
+      //     }
+      //     return taskData;
+      //   }),
+      // };
     case EDIT_STATUS:
       return { ...tasks, isEditing: action.payload };
     case DELETE:

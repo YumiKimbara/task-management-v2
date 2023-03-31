@@ -8,6 +8,10 @@ export const createTask = (newTask) => {
   return API.post("/", newTask)
 };
 
+export const updateTask = (updatedTask) => {
+  return API.patch("/", updatedTask)
+};
+
 export const deleteAllTasks = () => {
   return API.delete("/").then((res) => {
     console.log("res", res);

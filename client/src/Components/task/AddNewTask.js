@@ -50,6 +50,8 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state);
 
+  console.log("tasks", tasks)
+
   const [error, setError] = useState(false);
   const [taskText, setTaskText] = useState("");
 
@@ -180,7 +182,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
             //       (item) => !item.isDone && item.isKey
             //     )
             //   : ""
-            ""
+            tasks
           }
           setConfetti={setConfetti}
           setOpen={setOpen}
