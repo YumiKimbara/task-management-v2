@@ -3,7 +3,7 @@ import {
   CREATE,
   UPDATE,
   DELETE,
-  EDIT_TASK,
+  UPDATE_TASK,
   EDIT_STATUS,
   FAVORITE,
 } from "../constants/actionTypes";
@@ -14,7 +14,7 @@ export default (tasks = [], action) => {
       return action.payload;
     case CREATE:
       return [...tasks, action.payload];
-    case EDIT_TASK:
+    case UPDATE_TASK:
       return tasks.map((task) => {
         return task.id === action.payload.id ? action.payload : task
       })

@@ -58,7 +58,7 @@ const HomeReducer = (state, action) => {
       return { ...state, taskText: action.payload };
     case "CONFETTI":
       return { ...state, checkConfetti: true };
-    case "EDIT_TASK":
+    case "UPDATE_TASK":
       return {
         ...state,
         storeTaskData: state.storeTaskData.map((taskData) => {

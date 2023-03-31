@@ -4,7 +4,7 @@ import {
   UPDATE,
   DELETE,
   EDIT_STATUS,
-  EDIT_TASK
+  UPDATE_TASK
 } from "../constants/actionTypes";
 import * as api from "../../api";
 import type { ThunkDispatch } from "redux-thunk";
@@ -45,7 +45,7 @@ export const updateTask =
   (task: any) => async (dispatch: ThunkDispatch<any, void, Action>) => {
     try {
       const { data } = await api.updateTask(task);
-      dispatch({ type: EDIT_TASK, payload: data.task });
+      dispatch({ type: UPDATE_TASK, payload: data.task });
     } catch (error) {
       if (error instanceof Error) console.error(error);
     }
