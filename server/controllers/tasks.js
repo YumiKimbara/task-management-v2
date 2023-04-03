@@ -4,7 +4,6 @@ import TaskModel from "../models/tasks.js";
 export const getTasks = async (req, res) => {
   try {
     const taskData = await TaskModel.find();
-    console.log("taskData?", taskData);
     res.status(200).json(taskData);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -33,7 +32,7 @@ export const createTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const { _id } = req.body.task;
-    const { task, isEditing, isDone, isKey } = req.body;
+    const { task, isEditing, isDone, isKey } = req.body.task;
 
     if (!mongoose.Types.ObjectId.isValid(_id))
       return res.status(404).send(`No task with id: ${_id}`);

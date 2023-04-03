@@ -147,16 +147,11 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
 
   // store edited text
   const editTask = (data) => {
-    // console.log("editText", editText)
-    // if (!editText) return;
-    // // homeCtx.dispatchHome({
-    // //   type: "EDIT_TASK",
-    // //   payload: { data: { ...data, task: editText } },
-    // // });
+    if (!editText) return;
 
-    // dispatch(updateTask({
-    //   task: { ...data, task: editText }
-    // }))
+    dispatch(updateTask({
+      task: { ...data, task: editText }
+    }))
   };
 
   //if editing, set true, if not editing, set false
@@ -164,16 +159,6 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
     dispatch(updateTask({
       task: { ...data, isEditing: !isEditing }
     }))
-    // homeCtx.dispatchHome({
-    //   type: "EDIT_STATUS",
-    //   payload: !homeCtx.isEditing,
-    // });
-
-    // dispatch(
-    //   updateTaskStatus({
-    //     isEditing: true
-    //   })
-    // );
   };
 
   const deleteTask = (data) => {
@@ -260,7 +245,8 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                       onChange={(e) => {
                         setEditText(e.target.value);
                         !e.target.value ? setError(true) : setError(false);
-                        editTask(editText);
+                        // editTask(editText);
+                        editTask(data);
                       }}
                       onKeyPress={(e) => {
                         if (e.key === "Enter") {
