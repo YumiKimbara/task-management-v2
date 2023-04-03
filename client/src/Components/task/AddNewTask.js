@@ -92,6 +92,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
 
   const deleteAllTasksHandler = useCallback(() => {
     dispatch(deleteAllTasks());
+    dispatch(getTasks());
   }, []);
 
   return (
