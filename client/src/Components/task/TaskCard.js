@@ -245,10 +245,9 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                       onChange={(e) => {
                         setEditText(e.target.value);
                         !e.target.value ? setError(true) : setError(false);
-                        // editTask(editText);
                         editTask(data);
                       }}
-                      onKeyPress={(e) => {
+                      onkeydown={(e) => {
                         if (e.key === "Enter") {
                           changeEditStatus(data);
                           setEditText(data.task);
