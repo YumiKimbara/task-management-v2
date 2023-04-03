@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import HomeContext from "../../Context/HomeContext";
+// import HomeContext from "../../Context/HomeContext";
 
 import TaskCard from "./TaskCard";
 
@@ -20,30 +20,31 @@ const useStyles = makeStyles((theme) =>
 );
 
 const TaskDone = ({ setConfetti, setOpen }) => {
-  const homeCtx = useContext(HomeContext);
+  // const homeCtx = useContext(HomeContext);
   const classes = useStyles();
 
-  if (!homeCtx) return;
+  // if (!homeCtx) return;
 
-  const checkDone =
-    homeCtx.storeTaskData && homeCtx.storeTaskData.map((data) => data.isDone);
+  // const checkDone =
+  //   homeCtx.storeTaskData && homeCtx.storeTaskData.map((data) => data.isDone);
 
   return (
-    <>
-      {checkDone.includes(true) && (
-        <div>
-          <h2 className={classes.taskDone}>DONE</h2>
-          <TaskCard
-            setConfetti={setConfetti}
-            setOpen={setOpen}
-            cardData={
-              homeCtx.storeTaskData &&
-              homeCtx.storeTaskData.filter((item) => item.isDone)
-            }
-          />
-        </div>
-      )}
-    </>
+    "hi"
+    // <>
+    //   {checkDone.includes(true) && (
+    //     <div>
+    //       <h2 className={classes.taskDone}>DONE</h2>
+    //       <TaskCard
+    //         setConfetti={setConfetti}
+    //         setOpen={setOpen}
+    //         cardData={
+    //           homeCtx.storeTaskData &&
+    //           homeCtx.storeTaskData.filter((item) => item.isDone)
+    //         }
+    //       />
+    //     </div>
+    //   )}
+    // </>
   );
 };
 

@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import HomeContext from "../../Context/HomeContext";
+// import HomeContext from "../../Context/HomeContext";
 import { updateTaskStatus, updateTask } from "../../actions/tasks";
 
 import { makeStyles, createStyles, withStyles } from "@material-ui/core/styles";
@@ -112,7 +112,7 @@ const OrangeCheckbox = withStyles({
 const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const homeCtx = useContext(HomeContext);
+  // const homeCtx = useContext(HomeContext);
   const tasks = useSelector((state) => state)
   const [editText, setEditText] = useState("");
   const [editingId, setEditingId] = useState("");
@@ -122,55 +122,57 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
 
   // change the position of a task card to 'DONE' section
   const changeToDone = (data) => {
-    homeCtx.dispatchHome({
-      type: "DONE_TASK",
-      payload: data,
-    });
+    // homeCtx.dispatchHome({
+    //   type: "DONE_TASK",
+    //   payload: data,
+    // });
   };
 
   // change the position of a task card to 'UNDONE' section
   const changeToUnDone = (data) => {
-    if (!homeCtx.isEditing) {
-      homeCtx.dispatchHome({
-        type: "UNDONE_TASK",
-        payload: data,
-      });
-    }
+    // if (!homeCtx.isEditing) {
+    //   homeCtx.dispatchHome({
+    //     type: "UNDONE_TASK",
+    //     payload: data,
+    //   });
+    // }
   };
 
   const changeToKeyTask = (data, isKeyTrue) => {
-    homeCtx.dispatchHome({
-      type: "KEY_TASK",
-      payload: { data: data, key: isKeyTrue },
-    });
+    // homeCtx.dispatchHome({
+    //   type: "KEY_TASK",
+    //   payload: { data: data, key: isKeyTrue },
+    // });
   };
 
   // store edited text
-  const editTask = (data) => {
-    if (!editText) return;
+  const editTask = useCallback((data, newText) => {
+    // if (!editText) return;
+    if (!newText) return;
 
     dispatch(updateTask({
-      task: { ...data, task: editText }
+      task: { ...data, task: newText }
     }))
-  };
+  }, [])
 
   //if editing, set true, if not editing, set false
-  const changeEditStatus = (data) => {
+  const changeEditStatus = useCallback((data) => {
+    setIsEditing(prevIsEditing => !prevIsEditing)
     dispatch(updateTask({
       task: { ...data, isEditing: !isEditing }
     }))
-  };
+  }, [isEditing]);
 
   const deleteTask = (data) => {
-    homeCtx.dispatchHome({
-      type: "DELETE_TASK",
-      payload: data,
-    });
+    // homeCtx.dispatchHome({
+    //   type: "DELETE_TASK",
+    //   payload: data,
+    // });
 
-    if (homeCtx.storeTaskData.length === 1) {
-      setConfetti(true);
-      setOpen(true);
-    }
+    // if (homeCtx.storeTaskData.length === 1) {
+    //   setConfetti(true);
+    //   setOpen(true);
+    // }
   };
 
   const checkEditing = (id) => {
@@ -245,15 +247,15 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                       onChange={(e) => {
                         setEditText(e.target.value);
                         !e.target.value ? setError(true) : setError(false);
-                        editTask(data);
+                        // editTask(data, e.target.value);
                       }}
-                      onkeydown={(e) => {
+                      onKeyDown={(e) => {
                         if (e.key === "Enter") {
                           changeEditStatus(data);
                           setEditText(data.task);
                           checkEditing(data.id);
                           setEditingId(cardData[i].id);
-                          editTask(data);
+                          editTask(data, e.target.value);
                         }
                       }}
                     />

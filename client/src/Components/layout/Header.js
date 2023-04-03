@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import HomeContext from "../../Context/HomeContext";
+// import HomeContext from "../../Context/HomeContext";
 
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";

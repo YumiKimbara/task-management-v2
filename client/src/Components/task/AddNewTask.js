@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import HomeContext from "../../Context/HomeContext";
+// import HomeContext from "../../Context/HomeContext";
 import { createTask, getTasks, deleteAllTasks } from "../../actions/tasks";
 
 import TaskCard from "./TaskCard";

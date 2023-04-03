@@ -16,6 +16,7 @@ export default (tasks = [], action) => {
       return [...tasks, action.payload];
     case UPDATE_TASK:
       return tasks.map((task) => {
+        console.log("task.id === action.payload.id", task.id, action.payload.id)
         return task.id === action.payload.id ? action.payload : task
       })
       // return {

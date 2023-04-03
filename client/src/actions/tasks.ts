@@ -31,21 +31,21 @@ export const createTask =
     }
   };
 
-export const updateTaskStatus =
-  (status: boolean) => async (dispatch: ThunkDispatch<any, void, Action>) => {
-    try {
-      // const response = await api.createTask(task);
-      dispatch({ type: EDIT_STATUS, payload: status });
-    } catch (error) {
-      if (error instanceof Error) console.error(error);
-    }
-  };
+// export const updateTaskStatus =
+//   (status: boolean) => async (dispatch: ThunkDispatch<any, void, Action>) => {
+//     try {
+//       // const response = await api.createTask(task);
+//       dispatch({ type: EDIT_STATUS, payload: status });
+//     } catch (error) {
+//       if (error instanceof Error) console.error(error);
+//     }
+//   };
 
 export const updateTask =
   (task: any) => async (dispatch: ThunkDispatch<any, void, Action>) => {
     try {
       const { data } = await api.updateTask(task);
-      dispatch({ type: UPDATE_TASK, payload: data.task });
+      dispatch({ type: UPDATE_TASK, payload: data });
     } catch (error) {
       if (error instanceof Error) console.error(error);
     }
