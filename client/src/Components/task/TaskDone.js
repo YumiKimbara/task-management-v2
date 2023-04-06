@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-// import HomeContext from "../../Context/HomeContext";
+import { useSelector } from "react-redux";
 
 import TaskCard from "./TaskCard";
 
@@ -20,31 +20,29 @@ const useStyles = makeStyles((theme) =>
 );
 
 const TaskDone = ({ setConfetti, setOpen }) => {
-  // const homeCtx = useContext(HomeContext);
   const classes = useStyles();
 
-  // if (!homeCtx) return;
+  const tasks = useSelector((state) => state);
 
-  // const checkDone =
-  //   homeCtx.storeTaskData && homeCtx.storeTaskData.map((data) => data.isDone);
+  const checkDone =
+  tasks && tasks.map((task) => task.isDone);
 
   return (
-    "hi"
-    // <>
-    //   {checkDone.includes(true) && (
-    //     <div>
-    //       <h2 className={classes.taskDone}>DONE</h2>
-    //       <TaskCard
-    //         setConfetti={setConfetti}
-    //         setOpen={setOpen}
-    //         cardData={
-    //           homeCtx.storeTaskData &&
-    //           homeCtx.storeTaskData.filter((item) => item.isDone)
-    //         }
-    //       />
-    //     </div>
-    //   )}
-    // </>
+    <>
+      {checkDone.includes(true) && (
+        <div>
+          <h2 className={classes.taskDone}>DONE</h2>
+          <TaskCard
+            setConfetti={setConfetti}
+            setOpen={setOpen}
+            cardData={
+              tasks &&
+              tasks.filter((task) => task.isDone)
+            }
+          />
+        </div>
+      )}
+    </>
   );
 };
 

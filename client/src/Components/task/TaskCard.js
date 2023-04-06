@@ -192,6 +192,9 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
     <>
       {tasks &&
         tasks.map((data, i) => {
+          
+          if (!cardData[i]) return null;
+          
           return (
             <div className={classes.cardContainer} key={data.id}>
               <Card className={classes.root}>
