@@ -32,12 +32,12 @@ export const createTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const { _id } = req.body.task;
-    const { id, task, isEditing, isDone, isKey } = req.body.task;
+    const { id, task, isDone, isKey } = req.body.task;
 
     if (!mongoose.Types.ObjectId.isValid(_id))
       return res.status(404).send(`No task with id: ${_id}`);
   
-    const updatedTask = { id, task, isEditing, isDone, isKey, _id };
+    const updatedTask = { id, task, isDone, isKey, _id };
   
     await TaskModel.findByIdAndUpdate(_id, updatedTask, { new: true });
   

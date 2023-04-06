@@ -4,7 +4,6 @@ import {
   UPDATE,
   DELETE,
   UPDATE_TASK,
-  EDIT_STATUS,
   FAVORITE,
 } from "../constants/actionTypes";
 
@@ -16,7 +15,6 @@ export default (tasks = [], action) => {
       return [...tasks, action.payload];
     case UPDATE_TASK:
       return tasks.map((task) => {
-        console.log("task.id === action.payload.id", action.payload)
         return task.id === action.payload.id ? action.payload : task
       })
       // return {
