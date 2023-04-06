@@ -16,7 +16,7 @@ export default (tasks = [], action) => {
       return [...tasks, action.payload];
     case UPDATE_TASK:
       return tasks.map((task) => {
-        console.log("task.id === action.payload.id", task.id, action.payload.id)
+        console.log("task.id === action.payload.id", action.payload)
         return task.id === action.payload.id ? action.payload : task
       })
       // return {
@@ -33,8 +33,6 @@ export default (tasks = [], action) => {
       //     return taskData;
       //   }),
       // };
-    case EDIT_STATUS:
-      return { ...tasks, isEditing: action.payload };
     case DELETE:
       return tasks.filter((task) => task._id !== action.payload)
     default:
