@@ -122,20 +122,16 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
 
   // change the position of a task card to 'DONE' section
   const changeToDone = (data) => {
-    // homeCtx.dispatchHome({
-    //   type: "DONE_TASK",
-    //   payload: data,
-    // });
+    dispatch(updateTask({
+      task: { ...data, isDone: true }
+    }))
   };
 
   // change the position of a task card to 'UNDONE' section
   const changeToUnDone = (data) => {
-    // if (!homeCtx.isEditing) {
-    //   homeCtx.dispatchHome({
-    //     type: "UNDONE_TASK",
-    //     payload: data,
-    //   });
-    // }
+    dispatch(updateTask({
+      task: { ...data, isDone: false }
+    }))
   };
 
   const changeToKeyTask = (data, isKeyTrue) => {
@@ -219,8 +215,8 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                       name="task"
                       onClick={(e) => {
                         e.target.checked
-                          ? changeToDone(data, e)
-                          : changeToUnDone(data, e);
+                          ? changeToDone(data)
+                          : changeToUnDone(data);
                       }}
                     />
                   )}
