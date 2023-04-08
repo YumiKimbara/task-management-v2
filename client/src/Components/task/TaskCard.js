@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import HomeContext from "../../Context/HomeContext";
 import { updateTaskStatus, updateTask } from "../../actions/tasks";
 
 import { makeStyles, createStyles, withStyles } from "@material-ui/core/styles";
@@ -112,7 +111,6 @@ const OrangeCheckbox = withStyles({
 const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  // const homeCtx = useContext(HomeContext);
   const tasks = useSelector((state) => state)
   const [editText, setEditText] = useState("");
   const [editingId, setEditingId] = useState("");
@@ -135,10 +133,9 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
   };
 
   const changeToKeyTask = (data, isKeyTrue) => {
-    // homeCtx.dispatchHome({
-    //   type: "KEY_TASK",
-    //   payload: { data: data, key: isKeyTrue },
-    // });
+    dispatch(updateTask({
+      task: { ...data, isKey: isKeyTrue }
+    }))
   };
 
   // store edited text
@@ -192,7 +189,7 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
     <>
       {tasks &&
         tasks.map((data, i) => {
-          
+
           if (!cardData[i]) return null;
           
           return (

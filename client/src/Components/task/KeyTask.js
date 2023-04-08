@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-// import HomeContext from "../../Context/HomeContext";
+import { useSelector } from "react-redux";
 
 import TaskCard from "./TaskCard";
 
@@ -19,33 +18,33 @@ const useStyles = makeStyles(() =>
 );
 
 const KeyTask = ({ checkKey }) => {
-  // const homeCtx = useContext(HomeContext);
-  // const classes = useStyles();
+  const classes = useStyles();
 
-  // const noKeyTask =
-  //   homeCtx.storeTaskData &&
-  //   homeCtx.storeTaskData.every((data) => {
-  //     return !data.isKey;
-  //   });
+  const tasks = useSelector((state) => state);
 
-  // return (
-  //   <>
-  //     {homeCtx.storeTaskData && (
-  //       <div>
-  //         <h2 className={classes.keyTaskDone}>KEY TASK</h2>
-  //         <TaskCard
-  //           checkKey={checkKey}
-  //           cardData={homeCtx.storeTaskData.filter((item) => item.isKey)}
-  //         />
-  //       </div>
-  //     )}
-  //     {noKeyTask && (
-  //       <div className={classes.noKeyTaskMessage}>
-  //         <p>KEY TASK DOES'NT EXIST</p>
-  //       </div>
-  //     )}
-  //   </>
-  // );
+  const noKeyTask =
+    tasks && tasks.every((task) => {
+      return !task.isKey;
+    });
+
+  return (
+    <>
+      {tasks && (
+        <div>
+          <h2 className={classes.keyTaskDone}>KEY TASK</h2>
+          <TaskCard
+            checkKey={checkKey}
+            cardData={tasks.filter((task) => task.isKey)}
+          />
+        </div>
+      )}
+      {noKeyTask && (
+        <div className={classes.noKeyTaskMessage}>
+          <p>KEY TASK DOES'NT EXIST</p>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default KeyTask;

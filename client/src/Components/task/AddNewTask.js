@@ -181,12 +181,12 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
             //     )
             //   : ""
 
-            // tasks && !checkKey
-            //   ? tasks.filter((item) => !item.isDone)
-            //   : tasks.filter(
-            //       (item) => !item.isDone && item.isKey
-            //     )
-            tasks
+            tasks && !checkKey
+              ? tasks.filter((item) => !item.isDone)
+              : tasks.filter(
+                  (item) => item.isDone
+                )
+            // tasks
           }
           setConfetti={setConfetti}
           setOpen={setOpen}
