@@ -85,11 +85,10 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
 
   useEffect(() => {
     dispatch(getTasks());
-  }, []);
+  }, [tasks]);
 
   const deleteAllTasksHandler = useCallback(() => {
     dispatch(deleteAllTasks());
-    dispatch(getTasks());
   }, []);
 
   return (
@@ -112,8 +111,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   deleteAllTasksHandler();
-                }}
-              >
+                }}>
                 Delete this workplace
               </OrangeButton>
             )}
@@ -129,8 +127,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
           }}
           onSubmit={(e) => {
             e.preventDefault();
-          }}
-        >
+          }}>
           <OrangeFab
             size="small"
             aria-label="add"
@@ -183,9 +180,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
 
             tasks && !checkKey
               ? tasks.filter((item) => !item.isDone)
-              : tasks.filter(
-                  (item) => item.isDone
-                )
+              : tasks.filter((item) => item.isDone)
             // tasks
           }
           setConfetti={setConfetti}
