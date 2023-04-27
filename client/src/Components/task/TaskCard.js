@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateTaskStatus, updateTask } from "../../actions/tasks";
 
 import { makeStyles, createStyles, withStyles } from "@material-ui/core/styles";
@@ -111,43 +111,50 @@ const OrangeCheckbox = withStyles({
 const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state)
   const [editText, setEditText] = useState("");
   const [editingId, setEditingId] = useState("");
   const [notEditingId, setNotEditingId] = useState("");
   const [error, setError] = useState(false);
-  const [isEditing, setIsEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(false);
 
   // change the position of a task card to 'DONE' section
   const changeToDone = (data) => {
-    dispatch(updateTask({
-      task: { ...data, isDone: true }
-    }))
+    dispatch(
+      updateTask({
+        task: { ...data, isDone: true },
+      })
+    );
   };
 
   // change the position of a task card to 'UNDONE' section
   const changeToUnDone = (data) => {
-    dispatch(updateTask({
-      task: { ...data, isDone: false }
-    }))
+    dispatch(
+      updateTask({
+        task: { ...data, isDone: false },
+      })
+    );
   };
 
   const changeToKeyTask = (data, isKeyTrue) => {
-    dispatch(updateTask({
-      task: { ...data, isKey: isKeyTrue }
-    }))
+    dispatch(
+      updateTask({
+        task: { ...data, isKey: isKeyTrue },
+      })
+    );
   };
 
   // store edited text
   const editTask = useCallback((data, newText) => {
     if (!newText) return;
-    dispatch(updateTask({
-      task: { ...data, task: newText }
-    }))
-  }, [])
+    dispatch(
+      updateTask({
+        task: { ...data, task: newText },
+      })
+    );
+  }, []);
 
   const changeEditStatus = useCallback(() => {
-    setIsEditing(prevIsEditing => !prevIsEditing);
+    setIsEditing((prevIsEditing) => !prevIsEditing);
   }, []);
 
   const deleteTask = (data) => {
@@ -155,7 +162,6 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
     //   type: "DELETE_TASK",
     //   payload: data,
     // });
-
     // if (homeCtx.storeTaskData.length === 1) {
     //   setConfetti(true);
     //   setOpen(true);
@@ -187,11 +193,10 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
 
   return (
     <>
-      {tasks &&
-        tasks.map((data, i) => {
-
+      {cardData &&
+        cardData.map((data, i) => {
           if (!cardData[i]) return null;
-          
+
           return (
             <div className={classes.cardContainer} key={data.id}>
               <Card className={classes.root}>
@@ -203,9 +208,7 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                         //if task is done, check the checkbox
                         <OrangeCheckbox
                           disabled={isEditing ? true : false}
-                          checked={
-                            data.isDone && !isEditing ? true : false
-                          }
+                          checked={data.isDone && !isEditing ? true : false}
                           name="checkedB"
                           id={data.id}
                         />
@@ -220,9 +223,7 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                       }}
                     />
                   )}
-                  {!isEditing && (
-                    <label htmlFor="task">{data.task}</label>
-                  )}
+                  {!isEditing && <label htmlFor="task">{data.task}</label>}
                   {isEditing && cardData[i].id !== editingId && (
                     <label htmlFor="task">{data.task}</label>
                   )}
@@ -275,7 +276,7 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                           color="default"
                           disabled={
                             (notEditingId.includes(cardData[i].id) &&
-                            isEditing) ||
+                              isEditing) ||
                             error
                               ? true
                               : false

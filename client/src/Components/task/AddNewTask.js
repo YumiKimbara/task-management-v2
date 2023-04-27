@@ -49,6 +49,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state);
+  const keyTaskPage = false;
 
   const [error, setError] = useState(false);
   const [taskText, setTaskText] = useState("");
@@ -168,20 +169,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
       </div>
       <div className={classes.card}>
         <TaskCard
-          cardData={
-            //if there is a task card, and key is not checked, show task card which is not done and key is not checkd
-            //if there is a task card, and key is checked, show task card which is not done and key is checked.
-            // homeCtx.storeTaskData && !checkKey
-            //   ? homeCtx.storeTaskData.filter((item) => !item.isDone)
-            //   : homeCtx.keyTaskPage
-            //   ? homeCtx.storeTaskData.filter(
-            //       (item) => !item.isDone && item.isKey
-            //     )
-            //   : ""
-
-            tasks && tasks.filter((item) => !item.isDone)
-            // tasks
-          }
+          cardData={tasks ? tasks.filter((item) => !item.isDone) : ""}
           setConfetti={setConfetti}
           setOpen={setOpen}
         />
