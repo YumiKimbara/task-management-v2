@@ -83,12 +83,13 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
     [taskText]
   );
 
+  const deleteAllTasksHandler = useCallback(async () => {
+    await dispatch(deleteAllTasks());
+    await dispatch(getTasks());
+  }, [dispatch]);
+
   useEffect(() => {
     dispatch(getTasks());
-  }, [tasks]);
-
-  const deleteAllTasksHandler = useCallback(() => {
-    dispatch(deleteAllTasks());
   }, []);
 
   return (
@@ -178,9 +179,7 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
             //     )
             //   : ""
 
-            tasks && !checkKey
-              ? tasks.filter((item) => !item.isDone)
-              : tasks.filter((item) => item.isDone)
+            tasks && tasks.filter((item) => !item.isDone)
             // tasks
           }
           setConfetti={setConfetti}
