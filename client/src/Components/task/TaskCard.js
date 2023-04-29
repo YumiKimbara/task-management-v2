@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { updateTaskStatus, updateTask } from "../../actions/tasks";
+import { useDispatch, useSelector } from "react-redux";
+import { updateTask, deleteTask } from "../../actions/tasks";
 
 import { makeStyles, createStyles, withStyles } from "@material-ui/core/styles";
 import { orange } from "@material-ui/core/colors";
@@ -14,7 +14,7 @@ import {
 
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
-// import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
@@ -111,6 +111,7 @@ const OrangeCheckbox = withStyles({
 const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const tasks = useSelector((state) => state);
   const [editText, setEditText] = useState("");
   const [editingId, setEditingId] = useState("");
   const [notEditingId, setNotEditingId] = useState("");
@@ -157,7 +158,17 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
     setIsEditing((prevIsEditing) => !prevIsEditing);
   }, []);
 
-  const deleteTask = (data) => {
+  const deleteTaskHandler = (data) => {
+    const deletedTask = tasks.filter((task) => {
+      console.log(cardData, task, data);
+      return task.id !== data.id;
+    });
+    console.log("deletedTask", deletedTask);
+    dispatch(
+      deleteTask({
+        task: { ...deletedTask },
+      })
+    );
     // homeCtx.dispatchHome({
     //   type: "DELETE_TASK",
     //   payload: data,
@@ -260,9 +271,9 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
                             disabled={isEditing ? true : false}
                             color="default"
                             onClick={() => {
-                              data.isDone && deleteTask(data, true);
+                              data.isDone && deleteTaskHandler(data);
                             }}
-                            // icon={<DeleteIcon />}
+                            icon={<DeleteIcon />}
                           />
                         }
                       />

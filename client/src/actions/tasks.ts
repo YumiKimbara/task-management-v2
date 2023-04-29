@@ -3,8 +3,9 @@ import {
   CREATE,
   UPDATE,
   DELETE,
+  DELETE_ALL,
   EDIT_STATUS,
-  UPDATE_TASK
+  UPDATE_TASK,
 } from "../constants/actionTypes";
 import * as api from "../../api";
 import type { ThunkDispatch } from "redux-thunk";
@@ -45,7 +46,18 @@ export const updateTask =
   (task: any) => async (dispatch: ThunkDispatch<any, void, Action>) => {
     try {
       const { data } = await api.updateTask(task);
+      console.log("data", data);
       dispatch({ type: UPDATE_TASK, payload: data });
+    } catch (error) {
+      if (error instanceof Error) console.error(error);
+    }
+  };
+
+export const deleteTask =
+  () => async (dispatch: ThunkDispatch<any, void, Action>) => {
+    try {
+      await api.deleteTask();
+      dispatch({ type: DELETE, payload: "" });
     } catch (error) {
       if (error instanceof Error) console.error(error);
     }
@@ -55,7 +67,7 @@ export const deleteAllTasks =
   () => async (dispatch: ThunkDispatch<any, void, Action>) => {
     try {
       await api.deleteAllTasks();
-      dispatch({ type: DELETE, payload: "" });
+      dispatch({ type: DELETE_ALL, payload: "" });
     } catch (error) {
       if (error instanceof Error) console.error(error);
     }
