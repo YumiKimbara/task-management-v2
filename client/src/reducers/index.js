@@ -33,9 +33,13 @@ export default (tasks = [], action) => {
     //   }),
     // };
     case DELETE:
-      return tasks.filter((task) => task._id !== action.payload);
+      return tasks.filter((task) => task._id !== action.payload.id);
     case DELETE_ALL:
-      return tasks.filter((task) => task._id !== action.payload);
+      return {
+        ...state,
+        tasks: [],
+      };
+    // return tasks.filter((task) => task._id !== action.payload);
     default:
       return tasks;
   }

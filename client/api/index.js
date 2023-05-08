@@ -12,11 +12,11 @@ export const updateTask = (updatedTask) => {
   return API.patch("/", updatedTask);
 };
 
-export const deleteTask = () => {
-  return API.delete("/").then((res) => {
-    console.log("res", res);
-  });
-};
+// export const deleteTask = () => {
+//   return API.delete("/").then((res) => {
+//     console.log("res", res);
+//   });
+// };
 
 export const deleteAllTasks = () => {
   return API.delete("/").then((res) => {

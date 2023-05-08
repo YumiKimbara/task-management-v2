@@ -48,18 +48,19 @@ export const updateTask = async (req, res) => {
 };
 
 export const deleteTask = async (req, res) => {
-  try {
-    await TaskModel.deleteOne({});
-    res.status(200).json();
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
+  // const { id } = req.body.task;
+  // try {
+  //   await TaskModel.deleteOne({ id: id });
+  //   res.status(200).json();
+  // } catch (error) {
+  //   res.status(404).json({ message: error.message });
+  // }
 };
 
 export const deleteAllTasks = async (req, res) => {
   try {
     await TaskModel.deleteMany({});
-    res.status(200).json();
+    res.status(200).json({});
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

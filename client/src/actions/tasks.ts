@@ -4,7 +4,6 @@ import {
   UPDATE,
   DELETE,
   DELETE_ALL,
-  EDIT_STATUS,
   UPDATE_TASK,
 } from "../constants/actionTypes";
 import * as api from "../../api";
@@ -53,15 +52,15 @@ export const updateTask =
     }
   };
 
-export const deleteTask =
-  () => async (dispatch: ThunkDispatch<any, void, Action>) => {
-    try {
-      await api.deleteTask();
-      dispatch({ type: DELETE, payload: "" });
-    } catch (error) {
-      if (error instanceof Error) console.error(error);
-    }
-  };
+// export const deleteTask =
+//   () => async (dispatch: ThunkDispatch<any, void, Action>) => {
+//     try {
+//       await api.deleteTask();
+//       dispatch({ type: DELETE, payload: "" });
+//     } catch (error) {
+//       if (error instanceof Error) console.error(error);
+//     }
+//   };
 
 export const deleteAllTasks =
   () => async (dispatch: ThunkDispatch<any, void, Action>) => {

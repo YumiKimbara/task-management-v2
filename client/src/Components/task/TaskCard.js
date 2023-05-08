@@ -159,16 +159,15 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
   }, []);
 
   const deleteTaskHandler = (data) => {
-    const deletedTask = tasks.filter((task) => {
-      console.log(cardData, task, data);
-      return task.id !== data.id;
-    });
-    console.log("deletedTask", deletedTask);
-    dispatch(
-      deleteTask({
-        task: { ...deletedTask },
-      })
-    );
+    // const deletedTask = tasks.filter((task) => {
+    //   console.log(cardData, task, data);
+    //   return task.id !== data.id;
+    // });
+    // dispatch(
+    //   deleteTask({
+    //     task: { ...deletedTask },
+    //   })
+    // );
     // homeCtx.dispatchHome({
     //   type: "DELETE_TASK",
     //   payload: data,
