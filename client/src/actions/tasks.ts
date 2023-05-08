@@ -31,16 +31,6 @@ export const createTask =
     }
   };
 
-// export const updateTaskStatus =
-//   (status: boolean) => async (dispatch: ThunkDispatch<any, void, Action>) => {
-//     try {
-//       // const response = await api.createTask(task);
-//       dispatch({ type: EDIT_STATUS, payload: status });
-//     } catch (error) {
-//       if (error instanceof Error) console.error(error);
-//     }
-//   };
-
 export const updateTask =
   (task: any) => async (dispatch: ThunkDispatch<any, void, Action>) => {
     try {
@@ -66,6 +56,7 @@ export const deleteAllTasks =
   () => async (dispatch: ThunkDispatch<any, void, Action>) => {
     try {
       await api.deleteAllTasks();
+      console.log("deletedTask");
       dispatch({ type: DELETE_ALL, payload: "" });
     } catch (error) {
       if (error instanceof Error) console.error(error);

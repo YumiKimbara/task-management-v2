@@ -41,26 +41,34 @@ export const updateTask = async (req, res) => {
 
     await TaskModel.findByIdAndUpdate(_id, updatedTask, { new: true });
 
-    res.json(updatedTask);
+    res
+      .status(200)
+      .set("Access-Control-Allow-Origin", "http://localhost:3000")
+      .set("Access-Control-Allow-Credentials", "true")
+      .json(updatedTask);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
-export const deleteTask = async (req, res) => {
-  // const { id } = req.body.task;
-  // try {
-  //   await TaskModel.deleteOne({ id: id });
-  //   res.status(200).json();
-  // } catch (error) {
-  //   res.status(404).json({ message: error.message });
-  // }
-};
+// export const deleteTask = async (req, res) => {
+// const { id } = req.body.task;
+// try {
+//   await TaskModel.deleteOne({ id: id });
+//   res.status(200).json();
+// } catch (error) {
+//   res.status(404).json({ message: error.message });
+// }
+// };
 
 export const deleteAllTasks = async (req, res) => {
   try {
     await TaskModel.deleteMany({});
-    res.status(200).json({});
+    res
+      .status(200)
+      .set("Access-Control-Allow-Origin", "http://localhost:3000")
+      .set("Access-Control-Allow-Credentials", "true")
+      .json({ success: true });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

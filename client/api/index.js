@@ -18,8 +18,4 @@ export const updateTask = (updatedTask) => {
 //   });
 // };
 
-export const deleteAllTasks = () => {
-  return API.delete("/").then((res) => {
-    console.log("res", res);
-  });
-};
+export const deleteAllTasks = () => API.delete("/");
