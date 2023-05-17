@@ -1,7 +1,6 @@
 import {
   FETCH_ALL,
   CREATE,
-  UPDATE,
   DELETE,
   DELETE_ALL,
   UPDATE_TASK,
@@ -35,28 +34,26 @@ export const updateTask =
   (task: any) => async (dispatch: ThunkDispatch<any, void, Action>) => {
     try {
       const { data } = await api.updateTask(task);
-      console.log("data", data);
       dispatch({ type: UPDATE_TASK, payload: data });
     } catch (error) {
       if (error instanceof Error) console.error(error);
     }
   };
 
-// export const deleteTask =
-//   () => async (dispatch: ThunkDispatch<any, void, Action>) => {
-//     try {
-//       await api.deleteTask();
-//       dispatch({ type: DELETE, payload: "" });
-//     } catch (error) {
-//       if (error instanceof Error) console.error(error);
-//     }
-//   };
+export const deleteTask =
+  (task: any) => async (dispatch: ThunkDispatch<any, void, Action>) => {
+    try {
+      await api.deleteTask(task._id);
+      dispatch({ type: DELETE, payload: task });
+    } catch (error) {
+      if (error instanceof Error) console.error(error);
+    }
+  };
 
 export const deleteAllTasks =
   () => async (dispatch: ThunkDispatch<any, void, Action>) => {
     try {
       await api.deleteAllTasks();
-      console.log("deletedTask");
       dispatch({ type: DELETE_ALL, payload: "" });
     } catch (error) {
       if (error instanceof Error) console.error(error);

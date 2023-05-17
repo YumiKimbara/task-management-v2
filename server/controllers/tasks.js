@@ -51,15 +51,19 @@ export const updateTask = async (req, res) => {
   }
 };
 
-// export const deleteTask = async (req, res) => {
-// const { id } = req.body.task;
-// try {
-//   await TaskModel.deleteOne({ id: id });
-//   res.status(200).json();
-// } catch (error) {
-//   res.status(404).json({ message: error.message });
-// }
-// };
+export const deleteTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await TaskModel.findByIdAndRemove(id);
+    res
+      .status(200)
+      .set("Access-Control-Allow-Origin", "http://localhost:3000")
+      .set("Access-Control-Allow-Credentials", "true")
+      .json({});
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
 export const deleteAllTasks = async (req, res) => {
   try {
@@ -68,7 +72,7 @@ export const deleteAllTasks = async (req, res) => {
       .status(200)
       .set("Access-Control-Allow-Origin", "http://localhost:3000")
       .set("Access-Control-Allow-Credentials", "true")
-      .json({ success: true });
+      .json({});
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

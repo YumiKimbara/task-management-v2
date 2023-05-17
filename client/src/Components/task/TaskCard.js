@@ -158,25 +158,13 @@ const TaskCard = ({ cardData, checkKey, setConfetti, setOpen }) => {
     setIsEditing((prevIsEditing) => !prevIsEditing);
   }, []);
 
-  // const deleteTaskHandler = (data) => {
-  // const deletedTask = tasks.filter((task) => {
-  //   console.log(cardData, task, data);
-  //   return task.id !== data.id;
-  // });
-  // dispatch(
-  //   deleteTask({
-  //     task: { ...deletedTask },
-  //   })
-  // );
-  // homeCtx.dispatchHome({
-  //   type: "DELETE_TASK",
-  //   payload: data,
-  // });
-  // if (homeCtx.storeTaskData.length === 1) {
-  //   setConfetti(true);
-  //   setOpen(true);
-  // }
-  // };
+  const deleteTaskHandler = (data) => {
+    dispatch(deleteTask(data));
+    // if (homeCtx.storeTaskData.length === 1) {
+    //   setConfetti(true);
+    //   setOpen(true);
+    // }
+  };
 
   const checkEditing = (id) => {
     const unClikedEditButton = cardData.filter((item) => {

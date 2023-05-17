@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import HomeContext from "../../Context/HomeContext";
 import { createTask, getTasks, deleteAllTasks } from "../../actions/tasks";
 
 import TaskCard from "./TaskCard";
@@ -56,8 +55,8 @@ const AddNewTask = ({ checkKey, setConfetti, setOpen }) => {
 
   // when task cards changed, set card's info to local strage
   // useEffect(() => {
-  //   localStorage.setItem("task", JSON.stringify(homeCtx.storeTaskData));
-  // }, [homeCtx.storeTaskData]);
+  //   localStorage.setItem("task", JSON.stringify(tasks));
+  // }, [tasks]);
 
   const taskTextHandler = useCallback((e) => {
     setTaskText(e.target.value);
